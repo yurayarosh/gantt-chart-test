@@ -1,0 +1,182 @@
+$column-height: 40;
+$column-width-sm: 40;
+$column-width-lg: 150;
+
+.wrap {
+  --column-height: #{$column-height}px;
+
+  display: flex;
+  border: 1px solid;
+
+  :global(.left) {
+    width: 20%;
+    border-right: 1px solid;
+
+    > ul {
+      li {
+        display: flex;
+        align-items: center;
+        height: var(--column-height);
+        border-bottom: 1px solid;
+      }
+    }
+
+    :global(.top) {
+      display: flex;
+    }
+  }
+
+  :global(.right) {
+    width: 80%;
+    overflow: auto;
+  }
+
+  :global(.top) {
+    display: inline-flex;
+    align-items: center;
+
+    border-bottom: 1px solid;
+    height: 70px;
+
+    > ul {
+      display: flex;
+      align-items: center;
+
+      li {
+        text-align: center;
+        width: var(--column-width);
+
+        &:global(.is-sunday),
+        &:global(.is-saturday) {
+          > span {
+            opacity: 0.5;
+          }
+        }
+
+        &:global(.is-sunday) {
+          position: relative;
+
+          &::before {
+            content: attr(data-week);
+
+            display: block;
+            position: absolute;
+            bottom: 100%;
+            right: calc(var(--column-width) + 10px);
+            white-space: nowrap;
+          }
+        }
+      }
+    }
+  }
+
+  :global(table) {
+    table-layout: fixed;
+    margin-top: -1px;
+    margin-left: -1px;
+  }
+
+  :global(td) {
+    border: 1px solid;
+    height: var(--column-height);
+    width: var(--column-width);
+  }
+
+  &[data-view='days'] {
+    --column-width: #{$column-width-sm}px;
+
+    :global(.top) {
+      > ul {
+        margin-top: 1rem;
+      }
+    }
+  }
+
+  &[data-view='months'] {
+    --column-width: #{$column-width-lg}px;
+  }
+}
+
+.table {
+  position: relative;
+
+  :global(.task) {
+    position: absolute;
+    background-color: #fff000;
+
+    > span {
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    :global(.drag) {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      cursor: e-resize;
+      opacity: 0;
+
+      &:active {
+        opacity: 0;
+        cursor: e-resize !important;
+        // visibility: hidden;
+      }
+
+      &:global(.is-left) {
+        left: 0;
+      }
+
+      &:global(.is-right) {
+        right: 0;
+      }
+    }
+
+    :global(.hint) {
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 0;
+      transform: translate(-50%, 0);
+    }
+
+    @for $i from 1 through 10 {
+      &:nth-child(#{$i}) {
+        top: 11 + (($i - 1) * $column-height) + px;
+      }
+    }
+
+    &:hover {
+      :global(.hint) {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.line {
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  bottom: 0;
+  left: 100px;
+  width: 2px;
+  background-color: #2727e4;
+
+  :global(.hint) {
+    position: absolute;
+    z-index: 1;
+    top: 10px;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+
+  &:hover {
+    :global(.hint) {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}

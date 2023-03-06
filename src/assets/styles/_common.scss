@@ -1,0 +1,31 @@
+.App {
+  padding: 30px;
+}
+
+.is-day-off {
+  opacity: 0.5;
+}
+
+.hint {
+  position: absolute;
+
+  background-color: rgba(#000, 0.7);
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  white-space: nowrap;
+
+  visibility: hidden;
+  opacity: 0;
+
+  &::before {
+    content: '';
+
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, 0);
+
+    @include arr(20px, 10px, rgba(#000, 0.7), b);
+  }
+}

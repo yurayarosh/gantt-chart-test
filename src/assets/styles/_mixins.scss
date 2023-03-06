@@ -1,0 +1,45 @@
+@mixin arr($width, $height, $bg, $direction) {
+  width: 0px;
+  height: 0px;
+  border-style: solid;
+
+  @if $direction == t {
+    border-width: 0 math.div($width, 2) $height math.div($width, 2);
+    border-color: transparent transparent $bg transparent;
+  }
+
+  @if $direction == r {
+    border-width: math.div($height, 2) 0 math.div($height, 2) $width;
+    border-color: transparent transparent transparent $bg;
+  }
+
+  @if $direction == b {
+    border-width: $height math.div($width, 2) 0 math.div($width, 2);
+    border-color: $bg transparent transparent transparent;
+  }
+
+  @if $direction == l {
+    border-width: math.div($height, 2) $width math.div($height, 2) 0;
+    border-color: transparent $bg transparent transparent;
+  }
+
+  @if $direction == tl {
+    border-width: $height $width 0 0;
+    border-color: $bg transparent transparent transparent;
+  }
+
+  @if $direction == tr {
+    border-width: 0 $width $height 0;
+    border-color: transparent $bg transparent transparent;
+  }
+
+  @if $direction == br {
+    border-width: 0 0 $height $width;
+    border-color: transparent transparent $bg transparent;
+  }
+
+  @if $direction == bl {
+    border-width: $width 0 0 $height;
+    border-color: transparent transparent transparent $bg;
+  }
+}
